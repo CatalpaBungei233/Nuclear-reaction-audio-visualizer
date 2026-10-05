@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#121614">
+<title>REACTOR — 声场反应堆</title>
+<meta name="description" content="让音乐驱动堆芯。基于控制棒阵列的实时音频可视化。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23121614'/%3E%3Cpath d='M7 23V15h4v8m3 0V6h4v17m3 0V11h4v12' stroke='%23dded84' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="./"><span class="brand-icon">▦</span> REACTOR<span class="edition">AUDIO LAB / 01</span></a>
+  <span class="top-note">声音，进入堆芯。</span>
+</header>
+<main>
+  <section class="stage">
+    <div class="stage-title">
+      <div class="eyebrow">REAL-TIME AUDIO VISUALIZER</div>
+      <h1>声场反应堆<span> / CORE 01</span></h1>
+    </div>
+    <div class="live"><i></i><span id="status">等待音频…</span></div>
+    <canvas id="core" aria-label="圆形控制棒阵列，随音频频谱起伏的三维可视化"></canvas>
+
+    <div class="power-monitor" id="power-monitor">
+      <div class="power-label">REACTOR POWER</div>
+      <div class="power-value">
+        <span id="power-reading">200</span>
+        <small id="power-unit" class="power-unit">MW</small>
+      </div>
+      <div class="power-bar"><div id="power-bar-fill"></div></div>
+      <canvas id="power-scope" width="200" height="36"></canvas>
+      <div class="power-status" id="power-status">额定功率</div>
+    </div>
+
+    <div class="rad-monitor" id="rad-monitor">
+      <div class="rad-label">RADIATION</div>
+      <div class="rad-value">
+        <span id="rad-reading">0.124</span>
+        <small id="rad-unit">μSv/h</small>
+      </div>
+      <div class="rad-bar"><div id="rad-bar-fill"></div></div>
+      <div class="rad-status" id="rad-status">正常</div>
+    </div>
+
+    <div class="scale"><span>振幅</span><div></div><span>高</span><span>低</span></div>
+    <div class="stage-readout" id="stage-readout"></div>
+  </section>
+
+  <aside>
+    <div class="panel-title"><span>控制台</span><span class="eyebrow">CONTROL PANEL</span></div>
+
+    <section>
+      <label class="caption">01 / 音频源</label>
+      <div class="source-status">
+        <i></i>
+        <div>
+          <strong id="source-name">系统音频</strong>
+          <small id="source-sub">监听系统全局音频输出</small>
+        </div>
+      </div>
+      <p class="meta">控制棒阵列 · <span id="count">709</span> 通道</p>
+    </section>
+
+    <section>
+      <label class="caption">02 / 控制棒响应</label>
+
+      <div class="field">
+        <label for="gain">灵敏度</label>
+        <div class="num-wrap">
+          <input id="gain" type="number" min="0.3" max="3" step="0.1"
+                 value="1.4" inputmode="decimal" autocomplete="off">
+          <span class="unit">×</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="smooth">运动平滑度</label>
+        <div class="num-wrap">
+          <input id="smooth" type="number" min="0" max="95" step="1"
+                 value="75" inputmode="numeric" autocomplete="off">
+          <span class="unit">%</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="threshold">核爆临界值</label>
+        <div class="num-wrap">
+          <input id="threshold" type="number" min="0" max="100" step="1"
+                 value="70" inputmode="numeric" autocomplete="off">
+          <span class="unit">%</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="melthold">核爆蓄力</label>
+        <div class="num-wrap">
+          <input id="melthold" type="number" min="5" max="60" step="1"
+                 value="25" inputmode="numeric" autocomplete="off">
+          <span class="unit">×0.1s</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="radduration">堆芯恢复时长</label>
+        <div class="num-wrap">
+          <input id="radduration" type="number" min="5" max="60" step="1"
+                 value="15" inputmode="numeric" autocomplete="off">
+          <span class="unit">s</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <label class="caption">03 / 视角</label>
+      <div class="view-controls">
+        <button id="zoom-in" aria-label="放大">＋</button>
+        <button id="zoom-out" aria-label="缩小">－</button>
+        <button id="reset" aria-label="重置视角">重置视角 ⤾</button>
+      </div>
+      <p class="meta">↔ 拖动画面旋转视角</p>
+    </section>
+
+    <section>
+      <label class="caption">04 / 紧急操作</label>
+      <div class="view-controls">
+        <button id="detonate-btn" style="border-color: #ff3b30; color: #ff3b30; font-weight: bold;">手动引爆 ⚠</button>
+      </div>
+      <p class="meta">立即触发核爆，跳过音量蓄力等待</p>
+    </section>
+
+    <section class="readings" id="readout-section">
+      <label class="caption">05 / 实时读数</label>
+      <div class="meters">
+        <div><span>输入电平</span><strong id="level">—<small>dB</small></strong></div>
+        <div><span>峰值频率</span><strong id="freq">—<small>Hz</small></strong></div>
+      </div>
+      <canvas id="spectrum" aria-label="实时频谱"></canvas>
+    </section>
+
+    <p id="message" role="status">音频由系统提供，仅在本机处理。</p>
+  </aside>
+</main>
+<button id="panel-handle" aria-label="控制台" aria-expanded="false">控</button>
+<footer>
+  <span><b>◈</b> REACTOR EXPERIMENT</span>
+  <span>音乐驱动 · 非真实反应堆模拟</span>
+  <span>WALLPAPER ENGINE / LIVE</span>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

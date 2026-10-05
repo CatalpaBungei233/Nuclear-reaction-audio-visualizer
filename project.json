@@ -1,0 +1,153 @@
+{
+	"contentrating" : "Everyone",
+	"description" : "来自B站up：Distorted_W\r\nb站链接：https://www.bilibili.com/video/BV1CeYR65Evf/?spm_id_from=333.337.top_right_bar_window_history.content.click&vd_source=90ae6b8a22d9dfd664bb25ad43868821\r\nGithub:https://github.com/wzk112/reactor-audio-visualizer\r\n\r\n在b站看到这个，然后在评论区看到有人想要做成壁纸，我就根据UP主的原代码上进行修改和优化来做成的新的壁纸。如果侵权了我会选择下架，把修改后的代码发给UP主，由UP主上传。",
+	"file" : "index.html",
+	"general" : 
+	{
+		"preview" : "preview.jpg",
+		"properties" : 
+		{
+			"detonationthreshold" : 
+			{
+				"index" : 3,
+				"max" : 100,
+				"min" : 0,
+				"order" : 103,
+				"step" : 1,
+				"text" : "核爆临界值（音量 %）",
+				"type" : "slider",
+				"value" : 70
+			},
+			"enableexplosionsound" : 
+			{
+				"index" : 10,
+				"order" : 110,
+				"text" : "核爆音效",
+				"type" : "bool",
+				"value" : true
+			},
+			"enablewarning" : 
+			{
+				"index" : 6,
+				"order" : 106,
+				"text" : "核爆前预警",
+				"type" : "bool",
+				"value" : true
+			},
+			"enablewarningsound" : 
+			{
+				"index" : 8,
+				"order" : 108,
+				"text" : "预警音效",
+				"type" : "bool",
+				"value" : true
+			},
+			"explosionsoundvolume" : 
+			{
+				"index" : 11,
+				"max" : 100,
+				"min" : 0,
+				"order" : 111,
+				"step" : 5,
+				"text" : "核爆音效音量（%）",
+				"type" : "slider",
+				"value" : 70
+			},
+			"gain" : 
+			{
+				"index" : 1,
+				"max" : 3,
+				"min" : 0.3,
+				"order" : 101,
+				"step" : 0.1,
+				"text" : "灵敏度",
+				"type" : "slider",
+				"value" : 1.4
+			},
+			"meltholdtime" : 
+			{
+				"index" : 4,
+				"max" : 60,
+				"min" : 5,
+				"order" : 104,
+				"step" : 1,
+				"text" : "核爆蓄力时长（0.1秒）",
+				"type" : "slider",
+				"value" : 25
+			},
+			"radiationduration" : 
+			{
+				"index" : 5,
+				"max" : 60,
+				"min" : 5,
+				"order" : 105,
+				"step" : 1,
+				"text" : "堆芯恢复时长（秒）",
+				"type" : "slider",
+				"value" : 15
+			},
+			"readoutonstage" : 
+			{
+				"index" : 0,
+				"order" : 100,
+				"text" : "读数显示在画面上",
+				"type" : "bool",
+				"value" : true
+			},
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0.12156862745098039 0.1450980392156863 0.11372549019607843"
+			},
+			"smoothing" : 
+			{
+				"index" : 2,
+				"max" : 95,
+				"min" : 0,
+				"order" : 102,
+				"step" : 1,
+				"text" : "运动平滑度",
+				"type" : "slider",
+				"value" : 75
+			},
+			"warningadvance" : 
+			{
+				"index" : 7,
+				"max" : 100,
+				"min" : 0,
+				"order" : 107,
+				"step" : 5,
+				"text" : "预警提前量（%）",
+				"type" : "slider",
+				"value" : 80
+			},
+			"warningsoundvolume" : 
+			{
+				"index" : 9,
+				"max" : 100,
+				"min" : 0,
+				"order" : 109,
+				"step" : 5,
+				"text" : "预警音效音量（%）",
+				"type" : "slider",
+				"value" : 70
+			}
+		},
+		"supportsaudioprocessing" : true
+	},
+	"preview" : "preview.gif",
+	"ratingsex" : "none",
+	"ratingviolence" : "none",
+	"snapshotformat" : 0,
+	"snapshotoverlay" : "",
+	"supportsaudioprocessing" : true,
+	"tags" : [ "Technology" ],
+	"title" : "声场反应堆",
+	"type" : "Web",
+	"version" : 3,
+	"visibility" : "public",
+	"workshopid" : "3805607650",
+	"workshopurl" : "steam://url/CommunityFilePage/3805607650"
+}
